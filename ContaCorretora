@@ -1,0 +1,73 @@
+package fundo_imobiliario;
+
+import java.io.Console;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+
+class ContaCorretora {
+	double cnpj;
+	
+	public ContaCorretora(double cnpj){
+		this.cnpj = 90216200000179l;
+	}
+
+	public static void main( String[] args) {
+		// Declarando e instanciando uma lista de pessoas
+		List<ContaCorretora> pessoas = new LinkedList<>();
+		
+		DadosBancarios dadosBancarios = new DadosBancarios();
+		Pessoa pessoa = new Pessoa();
+		Console console = System.console();		
+		Scanner scan = new Scanner(System.in);
+
+		int opcao = 3;
+		do {
+			System.out.println("\nFundo Imobiliario");	
+			System.out.println("==================================");	
+			System.out.println("1.\t Criar uma conta");	
+			System.out.println("**********************************");
+			System.out.println("2.\t Encontrar Conta ");
+			System.out.println("**********************************");
+			System.out.println("3.\t Editar Conta ");
+			System.out.println("**********************************");
+			System.out.println("0.\t Encerrar sistema");	
+			opcao = scan.nextInt();
+
+			if (opcao == 1) {
+				System.out.println("Digite o nome do cliente: ");	
+				pessoa.nome = scan.next();
+				System.out.println("Digite o CPF do cliente (Ex: 000.000.000-00): ");
+				pessoa.cpfTitular = scan.next();
+				System.out.println("Digite o nome banco: ");	
+				dadosBancarios.banco = scan.next();
+				System.out.println("Digite a agencia: ");	
+				dadosBancarios.agencia = scan.nextInt();
+				System.out.println("Digite o numero da conta: ");	
+				dadosBancarios.numeroConta = scan.next();	
+				System.out.println("Digite o saldo da sua conta: ");		
+				dadosBancarios.saldo = scan.nextDouble();
+				pessoa.criarConta(pessoa.nome, pessoa.cpfTitular, dadosBancarios.numeroConta, dadosBancarios.saldo, dadosBancarios.banco, dadosBancarios.agencia);
+			}
+	
+			if (opcao == 2) {
+				System.out.println("Digite o numero da conta: ");	
+				String numeroContas = scan.next();
+				dadosBancarios = pessoa.encontrarContaCorretora(numeroContas);
+				ContaCorretoraDisplay.show(dadosBancarios, pessoa);
+			}
+			if (opcao == 3) {
+				pessoa.mostrar(pessoa.nome, pessoa.cpfTitular);;
+			}
+			
+		} while ( opcao != 0 );
+		
+		System.out.println("****************************************");
+		System.out.println("\t\t Fundo Imobiliario");
+		System.out.println("\t\t Volte Sempre !");
+		System.out.println("****************************************");
+			
+    }
+	
+}
