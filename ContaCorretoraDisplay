@@ -1,0 +1,40 @@
+package fundo_imobiliario;
+
+import java.util.Scanner;
+
+public class ContaCorretoraDisplay {
+	static Scanner scan = new Scanner(System.in);
+	private static String resp;
+	
+	public String getResp() {
+		return resp;
+	}
+
+	public void setResp(String resp) {
+		this.resp = resp;
+	}
+
+	public static void show(DadosBancarios banco, Pessoa pessoa) {
+		if(banco == null){
+		System.out.println("\nDados não encontrados");
+		}else{
+		System.out.println("\n\n===================================");
+		System.out.print("Nome do titular: ");
+		System.out.print(pessoa.getNome());
+		System.out.print("\nCPF do titular: ");
+		System.out.print(pessoa.getCpfTitular());
+		System.out.print("\nBanco do titular: ");
+		System.out.print(banco.getBanco());
+		System.out.print("\nAgencia do titular: ");
+		System.out.print(banco.getAgencia());	
+		System.out.print("\nNumero da conta: ");
+		System.out.print(banco.getNumeroConta());	
+		System.out.print("\nSaldo: ");
+		System.out.print(banco.getSaldo());
+		System.out.println("\n===================================\n\n");
+		System.out.println("Deseja editar a conta?");
+		}
+	}
+	
+}
+
