@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Conta {
 	
-	private List<Fundo> fundosIvestidor = new ArrayList<Fundo>();//lista de fundos que o usuario comprar
+	private List<Fundo> fundosIvestidor = new ArrayList<Fundo>();
 	
 	private String nome;
 	private String cpfTitular;
@@ -12,23 +12,21 @@ public class Conta {
 	private DadosBancario dadosBancario;
 	private Fundo fundo;
 	
-	//adiciona o fundo comprado
-	public void add(Fundo fundo) { 
+	public void add(Fundo fundo) {
 		fundosIvestidor.add(fundo);
 	}
 	
-	//remove o fundo quando for = 0
 	public void remove(Fundo fundo) {
 		fundosIvestidor.remove(fundo);
 	}
 	
+	@Override
 	public boolean equals(Object obj) {
 		Conta outraPessoa = (Conta) obj;
 		String cpfOutraPessoa = outraPessoa.getCpfTitular();
 		return cpfTitular.equals(cpfOutraPessoa);
 	}
 	
-	//encontrar fundo comprado
 	public Fundo encontrarFundo(String encontrarFundo) {
 		for (Fundo fundo : fundosIvestidor) {
 			String codigoCorrente = fundo.getCodigo();
@@ -37,7 +35,7 @@ public class Conta {
 		}
 		return null;
 	}
-//gets e sets
+
 	public String getNome() {
 		return nome;
 	}
@@ -45,23 +43,14 @@ public class Conta {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	public boolean getCpfTitularReg(){
-	      return cpfTitular.matches( "\\d{3}.\\d{3}.\\d{3}-\\d{2}");
-
-		}
-	
 
 	public String getCpfTitular() {
 		return cpfTitular;
-		
 	}
 
 	public void setCpfTitular(String cpfTitular) {
 		this.cpfTitular = cpfTitular;
 	}
-	
-	
 
 	public double getSaldo() {
 		return saldo;
@@ -78,7 +67,7 @@ public class Conta {
 	public void setDadosBancario(DadosBancario dadosBancario) {
 		this.dadosBancario = dadosBancario;
 	}
-//para ser possivel acessar de fora da classe
+
 	public List<Fundo> getFundosIvestidor() {
 		return fundosIvestidor;
 	}

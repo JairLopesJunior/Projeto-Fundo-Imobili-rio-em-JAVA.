@@ -12,7 +12,7 @@ import java.util.List;
 
 public class App 
 {
-	private static Scanner scan;//static usa sempre que for acessar o main
+	private static Scanner scan;
 	
 	public static void main( String[] args )
     {
@@ -39,9 +39,10 @@ public class App
 			System.out.println("**********************************");
 			System.out.println("7.\t Ver meus Fundos ");
 			System.out.println("**********************************");
-			System.out.println("8.\t Ver dividendos do mes ");
-            System.out.println("**********************************");
-            
+			System.out.println("8.\t Ver cotações do dia ");
+			System.out.println("**********************************");
+			System.out.println("9.\t Ver dividendos do mês ");
+			System.out.println("**********************************");
 			System.out.println("0.\t Encerrar sistema");	
 			opcao = scan.nextInt();
 
@@ -54,13 +55,6 @@ public class App
 				System.out.print("Digite o CPF do cliente (Ex: 000.000.000-00): ");
 				String cpfTitular = scan.next();
 				conta.setCpfTitular(cpfTitular);
-				
-				//express�o regular		
-				if(conta.getCpfTitularReg() == false) {				
-					System.out.println("\n**********************************");
-					System.out.print("Digite um CPF Valido: ");	
-					System.out.println("\n**********************************");
-				}else{
 				System.out.print("Digite o nome banco: ");	
 				String banco = scan.next();
 				dadosBancarios.setBanco(banco);
@@ -77,23 +71,21 @@ public class App
 				Conta contaEncontrada = corretora.encontrar(cpfTitular);
 				if(contaEncontrada != null) {
 					System.out.println("\n**********************************");
-					System.out.println("CPF ja existente");
+					System.out.println("CPF já existente");
 					System.out.println("\n**********************************");
 				}else{
 					corretora.add(conta);
 					System.out.println("\n**********************************");
 					System.out.println("Pessoa Cadastrada com sucesso");
 					System.out.println("**********************************");
-					}
 				}
 			}
-			
+	
 			if (opcao == 2) {
 				System.out.println("Informe o seu CPF: ");	
 				String cpfTitular = scan.next();
 				Conta contaEncontrada = corretora.encontrar(cpfTitular);
 				if (contaEncontrada != null) {
-					System.out.print("*******************************");
 					System.out.print("Nome: ");
 					System.out.println(contaEncontrada.getNome());
 					System.out.print("CPF: ");
@@ -108,11 +100,10 @@ public class App
 					System.out.println(contaEncontrada.getDadosBancario().getSaldo());
 					System.out.print("Saldo na Corretora: ");
 					System.out.println(contaEncontrada.getSaldo());
-					System.out.print("*******************************");
 				} else {
-					System.out.print("*******************************");
-					System.out.println("Pessoa nao encontrada");
-					System.out.print("*******************************");
+					System.out.println("\n**********************************");
+					System.out.println("Pessoa não Encontrada");
+					System.out.println("**********************************");
 				}
 			}
 			if (opcao == 3) {
@@ -137,7 +128,7 @@ public class App
 					System.out.println("**********************************");
 				}else{
 					System.out.println("**********************************");
-					System.out.println("Pessoa nao Encontrada");
+					System.out.println("Pessoa não Encontrada");
 					System.out.println("**********************************");
 				}
 			}
@@ -151,9 +142,9 @@ public class App
 					double valor = scan.nextDouble();
 					corretora.realizarTed(contaEncontrada, valor);
 				}else {
-					System.out.print("*******************************");
-					System.out.println("Pessoa nao Encontrada");
-					System.out.print("*******************************");
+					System.out.println("\n**********************************");
+					System.out.println("Pessoa não Encontrada");
+					System.out.println("**********************************");
 				}
 				
 			}
@@ -163,13 +154,13 @@ public class App
 				String cpfTitular = scan.next();
 				Conta contaEncontrada = corretora.encontrar(cpfTitular);
 				if(contaEncontrada != null) {
-					System.out.print("Quanto voce deseja resgatar do saldo:");
+					System.out.print("Quanto você deseja resgatar do saldo:");
 					double rSaldo = scan.nextDouble();
 					corretora.resgatarTed(contaEncontrada, rSaldo);
 				}else{
-					System.out.print("*******************************");
-					System.out.println("Pessoa nao Encontrada");
-					System.out.print("*******************************");
+					System.out.println("\n**********************************");
+					System.out.println("Pessoa não Encontrada");
+					System.out.println("**********************************");
 				}
 				
 			}
@@ -185,7 +176,7 @@ public class App
 				List<Fundo> fundos = corretora.getFundos();
 				for (Fundo f : fundos) {
 					System.out.println("ID:" + f.getCodigo());
-					System.out.println("Descricao: " + f.getDescricao());
+					System.out.println("Descrição: " + f.getDescricao());
 					System.out.println("Valor da Cota: " + f.getValorCota());
 					System.out.println("Dividendos: " + f.getDividendo());
 					System.out.println();
@@ -200,40 +191,48 @@ public class App
 					System.out.println("0.\t Voltar para Home");	
 					opcao = scan.nextInt();
 					
-					//busca o cpf
 					if(opcao == 1) {
 						Fundo fundoss = new Fundo();
 						System.out.println("Informe o seu CPF: ");	
 						String cpfTitular = scan.next();
 						Conta contaEncontrada = corretora.encontrar(cpfTitular);
 						
-						//se encontrar o cpf, buscar o fundo que deseja comprar
 						if(contaEncontrada != null) {
 							System.out.println("Informe o ID do fundo que você deseja comprar:");	
-							String Codigo = scan.next();
-							Fundo fundoEncontrado = corretora.encontrarCodigo(Codigo);
+							String encontrarFundo = scan.next();
+							Fundo fundoEncontrado = corretora.encontrarCodigo(encontrarFundo);
 							
-							//se fundo for encontrado, permitir comprar as cotas
 							if(fundoEncontrado != null) {
 								System.out.println("Informe quantas cotas você deseja comprar deste fundo:");	
 								int qtdeCotas = scan.nextInt();
-								
 									if(qtdeCotas > 0) {
 										fundoEncontrado.setQtde(qtdeCotas);
 										double qtdeCotasTotal = qtdeCotas * fundoEncontrado.getValorCota();
-										
-										if(qtdeCotasTotal <= contaEncontrada.getSaldo()) {
+								    	if(qtdeCotasTotal <= contaEncontrada.getSaldo()) {
 											double saldoCorretora = contaEncontrada.getSaldo();
 											saldoCorretora -= qtdeCotasTotal;
-											double valorDividendoTotal = qtdeCotas * fundoEncontrado.getDividendo();//10
-											double saldoAtualizado = saldoCorretora + valorDividendoTotal;//20
-											double dividendos = corretora.getDividendoMensal();//0
-											double dividendoGeral = dividendos + valorDividendoTotal;//10
-											contaEncontrada.setSaldo(saldoAtualizado);//20
-											corretora.setDividendoMensal(dividendoGeral);//10
-											contaEncontrada.add(fundoEncontrado);
+											double valorDividendoTotal = qtdeCotas * fundoEncontrado.getDividendo();
+											double saldoAtualizado = saldoCorretora + valorDividendoTotal;
+											double dividendos = corretora.getDividendoMensal();
+											double dividendoGeral = dividendos + valorDividendoTotal;
+											contaEncontrada.setSaldo(saldoAtualizado);
+											corretora.setDividendoMensal(dividendoGeral);
+//											Fundo fundoEncontradoInvestidor = contaEncontrada.encontrarFundo(encontrarFundo);
+//											System.out.println(fundoEncontradoInvestidor);
+//											if(fundoEncontradoInvestidor == fundoEncontrado) {
+//												double dividendoAtualizado = fundoEncontradoInvestidor.getDividendo() + fundoEncontrado.getDividendo();
+//												System.out.println(dividendoAtualizado);
+//												fundoEncontradoInvestidor.setDividendo(dividendoAtualizado);
+//												int qtdeAtualizada = fundoEncontradoInvestidor.getQtde() + fundoEncontrado.getQtde();
+//												fundoEncontradoInvestidor.setQtde(qtdeAtualizada);
+//												double valorCotaAtualizado = fundoEncontradoInvestidor.getValorCota() + fundoEncontrado.getValorCota();
+//												fundoEncontradoInvestidor.setValorCota(valorCotaAtualizado);
+												
+//											}else {
+												contaEncontrada.add(fundoEncontrado);
+//											}
 											System.out.println("\n**********************************");
-											System.out.println("Parabens voce acabou de comprar " + qtdeCotas + " cotas do fundo " + fundoEncontrado.getDescricao());
+											System.out.println("Parabêns você acabou de comprar " + qtdeCotas + " cotas do fundo " + fundoEncontrado.getDescricao());
 											System.out.println("**********************************");
 										}else{
 											System.out.println("\n**********************************");
@@ -243,61 +242,52 @@ public class App
 										break;
 									}else{
 										System.out.println("\n**********************************");
-										System.out.println("A quantidade nao pode ser menor que 1");
+										System.out.println("A quantidade não pode ser menor que 1");
 										System.out.println("**********************************");
 									}
 							}else{
 								System.out.println("\n**********************************");
-								System.out.println("Fundo nao Encontrado");
+								System.out.println("Fundo não Encontrado");
 								System.out.println("**********************************");
 							}
 						}else{
 							System.out.println("\n**********************************");
-							System.out.println("Pessoa nao Encontrada");
+							System.out.println("Pessoa não Encontrada");
 							System.out.println("**********************************");
 							break;
 						}
 					}
-					//verificar cpf
+					
 					if(opcao == 2) {
 						System.out.println("Informe o seu CPF: ");	
 						String cpfTitular = scan.next();
 						Conta contaEncontrada = corretora.encontrar(cpfTitular);
-						//verifica se a pessoa possui o fundo
+						
 						if(contaEncontrada != null) {
-							System.out.println("Informe o codigo do fundo que voce deseja vender:");	
+							System.out.println("Informe o codigo do fundo que você deseja vender:");	
 							String encontrarFundo = scan.next();
 							Fundo fundoEncontrado = contaEncontrada.encontrarFundo(encontrarFundo);
-							
-							//se o fundo existir, permitir venda
+							System.out.println(fundoEncontrado);
 							if(fundoEncontrado != null) {
-								System.out.println("Informe quantas cotas voce deseja vender deste fundo:");	
+								System.out.println("Informe quantas cotas você deseja vender deste fundo:");	
 								int qtdeCotas = scan.nextInt();
 								
-								//verifica se a quantidade a ser vendida � menor ou igual ao que a pessoa possui
 								if(qtdeCotas <= fundoEncontrado.getQtde() && qtdeCotas > 0) {
 								double qtdeCotasTotal = qtdeCotas * fundoEncontrado.getValorCota();
 								
 									if(qtdeCotasTotal <= contaEncontrada.getSaldo()) {
 										double saldoCorretora = contaEncontrada.getSaldo();
-										saldoCorretora += qtdeCotasTotal;//saldoCorretora = saldoCorretora + qtdeCotasTotal ;
+										saldoCorretora += qtdeCotasTotal;
 										contaEncontrada.setSaldo(saldoCorretora);
-										double valorDividendoTotal = qtdeCotas * fundoEncontrado.getDividendo();//10
-										double saldoAtualizado = saldoCorretora - valorDividendoTotal;//20
-										double dividendos = corretora.getDividendoMensal();//0
-										double dividendoGeral = dividendos - valorDividendoTotal;//10
-										contaEncontrada.setSaldo(saldoAtualizado);//20
-										corretora.setDividendoMensal(dividendoGeral);//10
 										
-										if(qtdeCotas == fundoEncontrado.getQtde()) {	
-										contaEncontrada.remove(fundoEncontrado);//se a qtd a ser vendida = a qtd que o usuario tem, entao remove o fundo da lista
+										if(qtdeCotas == fundoEncontrado.getQtde()) {
+											contaEncontrada.remove(fundoEncontrado);
 										}
 										System.out.println("\n**********************************");
-										System.out.println("Parabens voce acabou de vender " + qtdeCotas + " cotas das " + fundoEncontrado.getQtde()  + " cotas que você possui do fundo " + fundoEncontrado.getDescricao());
+										System.out.println("Parabêns você acabou de vender " + qtdeCotas + " cotas das " + fundoEncontrado.getQtde()  + " cotas que você possui do fundo " + fundoEncontrado.getDescricao());
 										System.out.println("**********************************");
-										int qtdeAtualCotas = fundoEncontrado.getQtde() - qtdeCotas;//qtdeAtualCotas recebe a quantidade antiga menos a quantidade vendida
-										fundoEncontrado.setQtde(qtdeAtualCotas);//seta a nova qtd
-										
+										int qtdeAtualCotas = fundoEncontrado.getQtde() - qtdeCotas;
+										fundoEncontrado.setQtde(qtdeAtualCotas);
 									}else{
 										System.out.println("\n**********************************");
 										System.out.println("Saldo insuficiente para comprar cotas");
@@ -311,12 +301,12 @@ public class App
 								}
 							}else{
 								System.out.println("\n**********************************");
-								System.out.println("Fundo nao Encontrado");
+								System.out.println("Fundo não Encontrado");
 								System.out.println("**********************************");
 							}
 						}else{
 							System.out.println("\n**********************************");
-							System.out.println("Pessoa nao Encontrada");
+							System.out.println("Pessoa não Encontrada");
 							System.out.println("**********************************");
 							break;
 						}
@@ -326,38 +316,48 @@ public class App
 				}
 				
 			}
-			//listar os fundos
+			
 			if(opcao == 7) {
 				System.out.println("Informe o seu CPF: ");	
 				String cpfTitular = scan.next();
 				Conta contaEncontrada = corretora.encontrar(cpfTitular);
 				if(contaEncontrada != null) {
-					List<Fundo> fundos = contaEncontrada.getFundosIvestidor();//todos os fundos que a pessoa comprar vai ser armazenada em "fundos"
-					for (Fundo i : fundos) {
-						System.out.println("ID:" + i.getCodigo());
-						System.out.println("Descricao: " + i.getDescricao());
-						System.out.println("Valor da Cota: " + i.getValorCota());
-						System.out.println("Dividendos: " + i.getDividendo());
-						System.out.println("Quantidade: " + i.getQtde());
+					List<Fundo> fundos = contaEncontrada.getFundosIvestidor();
+					for (Fundo p : fundos) {
+						System.out.println("ID:" + p.getCodigo());
+						System.out.println("Descrição: " + p.getDescricao());
+						System.out.println("Valor da Cota: " + p.getValorCota());
+						System.out.println("Dividendos: " + p.getDividendo());
+						System.out.println("Quantidade: " + p.getQtde());
 						System.out.println();
 					}
 				}else{
 					System.out.println("**********************************");
-					System.out.println("Pessoa nao Encontrada");
+					System.out.println("Pessoa não Encontrada");
 					System.out.println("**********************************");
 				}
 			}
 			
-						
 			if(opcao == 8) {
 				System.out.println("Informe o seu CPF: ");	
 				String cpfTitular = scan.next();
 				Conta contaEncontrada = corretora.encontrar(cpfTitular);
 				if(contaEncontrada != null) {
-					System.out.println("\nO valor do seu dividendo no m�s � " + corretora.getDividendoMensal() + " junto com o saldo � " + contaEncontrada.getSaldo());
+					
+				}else {
+					
+				}
+			}
+			
+			if(opcao == 9) {
+				System.out.println("Informe o seu CPF: ");	
+				String cpfTitular = scan.next();
+				Conta contaEncontrada = corretora.encontrar(cpfTitular);
+				if(contaEncontrada != null) {
+					System.out.println("\nO valor do seu dividendo no mês é " + corretora.getDividendoMensal() + " junto com o saldo é " + contaEncontrada.getSaldo());
 				}else{
 					System.out.println("\n**********************************");
-					System.out.println("Pessoa n�o Encontrada");
+					System.out.println("Pessoa não Encontrada");
 					System.out.println("**********************************");
 				}
 			}

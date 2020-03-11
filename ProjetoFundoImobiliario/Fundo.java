@@ -21,6 +21,7 @@ class Fundo {
 	   this.qtde = Integer.parseInt(qtde);
    }
    
+	@Override
 	public boolean equals(Object obj) {
 		Fundo outraPessoa = (Fundo) obj;
 		String codigoOutraPessoa = outraPessoa.getCodigo();

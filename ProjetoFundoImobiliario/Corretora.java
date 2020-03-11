@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -25,22 +26,18 @@ public class Corretora {
 	}
 
 	public void add(Conta conta) {
-		
-		if(conta.getCpfTitularReg() == false) {
-			System.out.println("\nCPF invalido");
-		}else{
 		contas.add(conta);
-		}
 	}
 	
-		
+	public void remover(Conta conta) {
+		contas.remove(conta);
+	}
+	
 	public void atualizar(Conta conta) {
 		contas.remove(conta);
 		contas.add(conta);
 	}
 	
-	
-	//fundos txt
 	public Fundo encontrarCodigo(String Codigo) {
 		for (Fundo fundo : fundos) {
 			String codigoCorrente = fundo.getCodigo();
@@ -60,8 +57,8 @@ public class Corretora {
 	}
 	
 	public void realizarTed(Conta conta, double valor) {
-		double saldoCorrente = conta.getSaldo();//saldo corretora
-		double saldoBancario = conta.getDadosBancario().getSaldo();//saldo banco
+		double saldoCorrente = conta.getSaldo();
+		double saldoBancario = conta.getDadosBancario().getSaldo();
 		if(valor <= saldoBancario) {
 			saldoCorrente += valor;
 			conta.setSaldo(saldoCorrente);
@@ -86,7 +83,7 @@ public class Corretora {
 			saldoBancario += valor;
 			conta.getDadosBancario().setSaldo(saldoBancario);
 			System.out.println("\n**********************************");
-			System.out.println("Resgate realizado com sucesso");
+			System.out.println("Resgate realizada com sucesso");
 			System.out.println("**********************************");
 		}else{
 			System.out.println("\n**********************************");
@@ -97,7 +94,7 @@ public class Corretora {
 	
 	private void lerFundos() {
 		try{
-	        FileReader fr = new FileReader("FII.txt");
+	        FileReader fr = new FileReader("angelo.txt");
 	        BufferedReader br = new BufferedReader(fr);
 	        String temp;
 	        while ((temp = br.readLine()) != null) {
@@ -112,6 +109,7 @@ public class Corretora {
 	        e.printStackTrace();
 	    }
 	}
+
 	public double getDividendoMensal() {
 		return dividendoMensal;
 	}

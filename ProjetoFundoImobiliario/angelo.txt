@@ -2,4 +2,3 @@
 2;Apartamento;3.00;0.30;0
 3;Disney;5.00;0.50;0
 4;Shopping;10.00;1.00;0
-5;estadio;50.00;0.50;0
